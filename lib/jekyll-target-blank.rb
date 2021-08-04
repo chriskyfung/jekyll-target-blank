@@ -1,3 +1,6 @@
+# This file is a fork of https://raw.githubusercontent.com/keithmifsud/jekyll-target-blank/master/lib/jekyll-target-blank.rb by keithmifsud
+# MIT License
+
 # frozen_string_literal: true
 
 require "jekyll"
@@ -79,6 +82,7 @@ module Jekyll
             add_target_blank_attribute(item)
             add_rel_attributes(item)
             add_css_classes_if_required(item)
+            add_data_vars_event_label_attributes(item)
           end
           next
         end
@@ -178,6 +182,13 @@ module Jekyll
           rel += "noopener"
         end
         rel
+      end
+
+      # Private: Adds the data-vars-event-label and values to the link.
+      #
+      # link = Nokogiri node.             
+      def add_data_vars_event_label_attributes(link)
+        link["data-vars-event-label"] = link["href"]
       end
 
       # Private: Checks if the link is a mailto url.
